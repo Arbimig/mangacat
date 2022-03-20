@@ -1,10 +1,10 @@
 import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:mangacat/data/models/response.dart';
-import 'package:mangacat/data/repository/webtoon_api.dart';
 import 'package:mangacat/domain/providers/theme_provider.dart';
 import 'package:provider/provider.dart';
+import 'data/api/web_toon_api.dart';
+import 'presentaiton/screens/main_screen.dart';
 
 void main() {
   runApp(MultiProvider(
@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Manga Cat',
       theme: context.watch<ThemeProvider>().themeData,
-      home: const MyHomePage(title: 'Manga Cat'),
+      home: const MainScreen(),
     );
   }
 }
@@ -38,10 +38,10 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
-  late Future<Response?> response;
+  late Future<ResponseModel?> response;
   @override
   void initState() {
-    response = MangadexApi().getHome();
+    response = WebToonApi().canvasApi.getHome(language: 'en');
     super.initState();
   }
 
@@ -55,13 +55,18 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Center(
         child: FutureBuilder(
             future: response,
-            builder: ((context, AsyncSnapshot<Response?> snapshot) {
+            builder: ((context, AsyncSnapshot<ResponseModel?> snapshot) {
               if (snapshot.hasData) {
-                Response? response = snapshot.data;
+                ResponseModel? response = snapshot.data;
+                if (response == null) {
+                  return const SizedBox();
+                }
                 return ListView.builder(
-                    itemCount: response!.result!.weeklyHotTitleList!.length,
+                    itemCount:
+                        response.message!.result!.weeklyHotTitleList!.length,
                     itemBuilder: (context, index) {
-                      log(response.result!.weeklyHotTitleList![index].titleNo
+                      log(response
+                          .message!.result!.weeklyHotTitleList![index].titleNo
                           .toString());
                       return Card(
                         child: ListTile(
@@ -70,8 +75,8 @@ class _MyHomePageState extends State<MyHomePage> {
                               height: 70,
                               child: Image.network(
                                 'https://webtoon-phinf.pstatic.net' +
-                                    response.result!.weeklyHotTitleList![index]
-                                        .thumbnail!,
+                                    response.message!.result!
+                                        .weeklyHotTitleList![index].thumbnail!,
                                 headers: const {
                                   "Referer": "http://m.webtoons.com/",
                                   "User-Agent":
@@ -81,26 +86,32 @@ class _MyHomePageState extends State<MyHomePage> {
                             ),
                             subtitle: Column(
                               children: [
-                                Text(response.result!.weeklyHotTitleList![index]
-                                    .rankingMana!
+                                Text(response.message!.result!
+                                    .weeklyHotTitleList![index].rankingMana!
                                     .toString()),
                                 Text(
-                                  response.result!.weeklyHotTitleList![index]
+                                  response
+                                      .message!
+                                      .result!
+                                      .weeklyHotTitleList![index]
                                       .representGenre!
                                       .toString(),
                                 ),
-                                Text(response.result!.weeklyHotTitleList![index]
+                                Text(response
+                                    .message!
+                                    .result!
+                                    .weeklyHotTitleList![index]
                                     .representGenreCssCode!
                                     .toString()),
                               ],
                             ),
-                            title: Text(response
-                                    .result?.weeklyHotTitleList?[index].title ??
+                            title: Text(response.message!.result
+                                    ?.weeklyHotTitleList?[index].title ??
                                 '')),
                       );
                     });
               }
-              return Center(child: CircularProgressIndicator());
+              return const Center(child: CircularProgressIndicator());
             })),
       ),
       floatingActionButton: FloatingActionButton(

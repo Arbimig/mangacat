@@ -6,25 +6,26 @@ part of 'response.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_HomeModel _$$_HomeModelFromJson(Map<String, dynamic> json) => _$_HomeModel(
-      (json['weeklyHotTitleList'] as List<dynamic>?)
-          ?.map((e) => MangaModel.fromJson(e as Map<String, dynamic>))
-          .toList(),
+_$_Response _$$_ResponseFromJson(Map<String, dynamic> json) => _$_Response(
+      json['message'] == null
+          ? null
+          : Message.fromJson(json['message'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$$_HomeModelToJson(_$_HomeModel instance) =>
+Map<String, dynamic> _$$_ResponseToJson(_$_Response instance) =>
     <String, dynamic>{
-      'weeklyHotTitleList': instance.weeklyHotTitleList,
+      'message': instance.message,
     };
 
-_$_Response _$$_ResponseFromJson(Map<String, dynamic> json) => _$_Response(
+_$_MessageModel _$$_MessageModelFromJson(Map<String, dynamic> json) =>
+    _$_MessageModel(
       json['type'] as String?,
       json['result'] == null
           ? null
           : HomeModel.fromJson(json['result'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$$_ResponseToJson(_$_Response instance) =>
+Map<String, dynamic> _$$_MessageModelToJson(_$_MessageModel instance) =>
     <String, dynamic>{
       'type': instance.type,
       'result': instance.result,
