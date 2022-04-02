@@ -11,4 +11,7 @@ abstract class CanvasApi {
 
   @GET('/canvas/home')
   Future<ResponseModel> getHome({@Body() required String language});
+
+  @GET('canvas/titles/get-info')
+  Future<ResponseModel> getMangaInfo({@Body() required String mangaId});
 }

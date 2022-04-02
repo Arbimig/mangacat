@@ -22,9 +22,16 @@ HomeModel _$HomeModelFromJson(Map<String, dynamic> json) {
 class _$HomeModelTearOff {
   const _$HomeModelTearOff();
 
-  _HomeModel call(List<MangaModel>? weeklyHotTitleList) {
+  _HomeModel call(
+      List<MangaModel>? weeklyHotTitleList,
+      List<MangaModel>? freshPicksTitleList,
+      List<GenresModel>? popularByGenreList,
+      List<GenresModel>? weeklyHotByGenreList) {
     return _HomeModel(
       weeklyHotTitleList,
+      freshPicksTitleList,
+      popularByGenreList,
+      weeklyHotByGenreList,
     );
   }
 
@@ -40,6 +47,12 @@ const $HomeModel = _$HomeModelTearOff();
 mixin _$HomeModel {
   List<MangaModel>? get weeklyHotTitleList =>
       throw _privateConstructorUsedError;
+  List<MangaModel>? get freshPicksTitleList =>
+      throw _privateConstructorUsedError;
+  List<GenresModel>? get popularByGenreList =>
+      throw _privateConstructorUsedError;
+  List<GenresModel>? get weeklyHotByGenreList =>
+      throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -51,7 +64,11 @@ mixin _$HomeModel {
 abstract class $HomeModelCopyWith<$Res> {
   factory $HomeModelCopyWith(HomeModel value, $Res Function(HomeModel) then) =
       _$HomeModelCopyWithImpl<$Res>;
-  $Res call({List<MangaModel>? weeklyHotTitleList});
+  $Res call(
+      {List<MangaModel>? weeklyHotTitleList,
+      List<MangaModel>? freshPicksTitleList,
+      List<GenresModel>? popularByGenreList,
+      List<GenresModel>? weeklyHotByGenreList});
 }
 
 /// @nodoc
@@ -65,12 +82,27 @@ class _$HomeModelCopyWithImpl<$Res> implements $HomeModelCopyWith<$Res> {
   @override
   $Res call({
     Object? weeklyHotTitleList = freezed,
+    Object? freshPicksTitleList = freezed,
+    Object? popularByGenreList = freezed,
+    Object? weeklyHotByGenreList = freezed,
   }) {
     return _then(_value.copyWith(
       weeklyHotTitleList: weeklyHotTitleList == freezed
           ? _value.weeklyHotTitleList
           : weeklyHotTitleList // ignore: cast_nullable_to_non_nullable
               as List<MangaModel>?,
+      freshPicksTitleList: freshPicksTitleList == freezed
+          ? _value.freshPicksTitleList
+          : freshPicksTitleList // ignore: cast_nullable_to_non_nullable
+              as List<MangaModel>?,
+      popularByGenreList: popularByGenreList == freezed
+          ? _value.popularByGenreList
+          : popularByGenreList // ignore: cast_nullable_to_non_nullable
+              as List<GenresModel>?,
+      weeklyHotByGenreList: weeklyHotByGenreList == freezed
+          ? _value.weeklyHotByGenreList
+          : weeklyHotByGenreList // ignore: cast_nullable_to_non_nullable
+              as List<GenresModel>?,
     ));
   }
 }
@@ -81,7 +113,11 @@ abstract class _$HomeModelCopyWith<$Res> implements $HomeModelCopyWith<$Res> {
           _HomeModel value, $Res Function(_HomeModel) then) =
       __$HomeModelCopyWithImpl<$Res>;
   @override
-  $Res call({List<MangaModel>? weeklyHotTitleList});
+  $Res call(
+      {List<MangaModel>? weeklyHotTitleList,
+      List<MangaModel>? freshPicksTitleList,
+      List<GenresModel>? popularByGenreList,
+      List<GenresModel>? weeklyHotByGenreList});
 }
 
 /// @nodoc
@@ -96,12 +132,27 @@ class __$HomeModelCopyWithImpl<$Res> extends _$HomeModelCopyWithImpl<$Res>
   @override
   $Res call({
     Object? weeklyHotTitleList = freezed,
+    Object? freshPicksTitleList = freezed,
+    Object? popularByGenreList = freezed,
+    Object? weeklyHotByGenreList = freezed,
   }) {
     return _then(_HomeModel(
       weeklyHotTitleList == freezed
           ? _value.weeklyHotTitleList
           : weeklyHotTitleList // ignore: cast_nullable_to_non_nullable
               as List<MangaModel>?,
+      freshPicksTitleList == freezed
+          ? _value.freshPicksTitleList
+          : freshPicksTitleList // ignore: cast_nullable_to_non_nullable
+              as List<MangaModel>?,
+      popularByGenreList == freezed
+          ? _value.popularByGenreList
+          : popularByGenreList // ignore: cast_nullable_to_non_nullable
+              as List<GenresModel>?,
+      weeklyHotByGenreList == freezed
+          ? _value.weeklyHotByGenreList
+          : weeklyHotByGenreList // ignore: cast_nullable_to_non_nullable
+              as List<GenresModel>?,
     ));
   }
 }
@@ -109,17 +160,24 @@ class __$HomeModelCopyWithImpl<$Res> extends _$HomeModelCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_HomeModel implements _HomeModel {
-  const _$_HomeModel(this.weeklyHotTitleList);
+  const _$_HomeModel(this.weeklyHotTitleList, this.freshPicksTitleList,
+      this.popularByGenreList, this.weeklyHotByGenreList);
 
   factory _$_HomeModel.fromJson(Map<String, dynamic> json) =>
       _$$_HomeModelFromJson(json);
 
   @override
   final List<MangaModel>? weeklyHotTitleList;
+  @override
+  final List<MangaModel>? freshPicksTitleList;
+  @override
+  final List<GenresModel>? popularByGenreList;
+  @override
+  final List<GenresModel>? weeklyHotByGenreList;
 
   @override
   String toString() {
-    return 'HomeModel(weeklyHotTitleList: $weeklyHotTitleList)';
+    return 'HomeModel(weeklyHotTitleList: $weeklyHotTitleList, freshPicksTitleList: $freshPicksTitleList, popularByGenreList: $popularByGenreList, weeklyHotByGenreList: $weeklyHotByGenreList)';
   }
 
   @override
@@ -128,12 +186,22 @@ class _$_HomeModel implements _HomeModel {
         (other.runtimeType == runtimeType &&
             other is _HomeModel &&
             const DeepCollectionEquality()
-                .equals(other.weeklyHotTitleList, weeklyHotTitleList));
+                .equals(other.weeklyHotTitleList, weeklyHotTitleList) &&
+            const DeepCollectionEquality()
+                .equals(other.freshPicksTitleList, freshPicksTitleList) &&
+            const DeepCollectionEquality()
+                .equals(other.popularByGenreList, popularByGenreList) &&
+            const DeepCollectionEquality()
+                .equals(other.weeklyHotByGenreList, weeklyHotByGenreList));
   }
 
   @override
   int get hashCode => Object.hash(
-      runtimeType, const DeepCollectionEquality().hash(weeklyHotTitleList));
+      runtimeType,
+      const DeepCollectionEquality().hash(weeklyHotTitleList),
+      const DeepCollectionEquality().hash(freshPicksTitleList),
+      const DeepCollectionEquality().hash(popularByGenreList),
+      const DeepCollectionEquality().hash(weeklyHotByGenreList));
 
   @JsonKey(ignore: true)
   @override
@@ -147,13 +215,23 @@ class _$_HomeModel implements _HomeModel {
 }
 
 abstract class _HomeModel implements HomeModel {
-  const factory _HomeModel(List<MangaModel>? weeklyHotTitleList) = _$_HomeModel;
+  const factory _HomeModel(
+      List<MangaModel>? weeklyHotTitleList,
+      List<MangaModel>? freshPicksTitleList,
+      List<GenresModel>? popularByGenreList,
+      List<GenresModel>? weeklyHotByGenreList) = _$_HomeModel;
 
   factory _HomeModel.fromJson(Map<String, dynamic> json) =
       _$_HomeModel.fromJson;
 
   @override
   List<MangaModel>? get weeklyHotTitleList;
+  @override
+  List<MangaModel>? get freshPicksTitleList;
+  @override
+  List<GenresModel>? get popularByGenreList;
+  @override
+  List<GenresModel>? get weeklyHotByGenreList;
   @override
   @JsonKey(ignore: true)
   _$HomeModelCopyWith<_HomeModel> get copyWith =>
