@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mangacat/presentaiton/widgets/image_widget.dart';
+import 'package:mangacat/data/models/geners/genres_model.dart';
+import 'package:mangacat/data/models/manga/manga_model.dart';
+import 'package:mangacat/presentaiton/screens/manga_screen/manga_card.dart';
 import 'package:mangacat/domain/home_bloc/bloc/home_bloc.dart';
-import '../../../data/models/genres_model.dart';
-import '../../../data/models/manga_model.dart';
 
 
 class HomeScreen extends StatelessWidget {
@@ -24,60 +24,38 @@ class HomeScreen extends StatelessWidget {
               List<GenresModel>? weeklyHotByGenreList) {
             return ListView(
               children: [
-                Text(
+                const Text(
                   'Fresh picks title',
-                  style: TextStyle(
+                  style:  TextStyle(
                     fontSize: 24,
                   ),
                 ),
                 ...List.generate(freshPicksTitleList?.length ?? 0, (index) {
                   MangaModel freshPicksTitle = freshPicksTitleList![index];
-                  return Card(
-                    child: ListTile(
-                        leading: CustomImage(
-                          imageUrl: 'https://webtoon-phinf.pstatic.net' + freshPicksTitle.thumbnail!,
-                        ),
-                        title: Text(
-                          freshPicksTitle.title ?? '',
-                        )),
-                  );
+                  return MangaCard(mangaModel: freshPicksTitle);
                 }),
-                Text(
+                const Text(
                   'Weekly hot title',
-                  style: TextStyle(
+                  style:  TextStyle(
                     fontSize: 24,
                   ),
                 ),
                 ...List.generate(weeklyHotTitleList?.length ?? 0, (index) {
                   MangaModel weeklyHotTitle = weeklyHotTitleList![index];
-                  return Card(
-                    child: ListTile(
-                        leading: CustomImage(
-                          imageUrl: 'https://webtoon-phinf.pstatic.net' + weeklyHotTitle.thumbnail!,
-                        ),
-                        title: Text(
-                          weeklyHotTitle.title ?? '',
-                        )),
-                  );
+                  return MangaCard(mangaModel: weeklyHotTitle);
                 }),
                 ...List.generate(
                     popularByGenreList?.length ?? 0,
                     (i) => Column(children: [
                           Text(
                             popularByGenreList?[i].challengeGenreTab ?? '',
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontSize: 24,
                             ),
                           ),
                           ...List.generate(popularByGenreList?[i].titleList?.length ?? 0, (index) {
                             MangaModel weeklyHotTitle = popularByGenreList![i].titleList![index];
-                            return Card(
-                              child: ListTile(
-                                  leading: CustomImage(
-                                    imageUrl: 'https://webtoon-phinf.pstatic.net' + weeklyHotTitle.thumbnail!,
-                                  ),
-                                  title: Text(weeklyHotTitle.title ?? '')),
-                            );
+                              return MangaCard(mangaModel: weeklyHotTitle);
                           })
                         ])),
                 ...List.generate(
@@ -85,19 +63,13 @@ class HomeScreen extends StatelessWidget {
                     (i) => Column(children: [
                           Text(
                             weeklyHotByGenreList?[i].challengeGenreTab ?? '',
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontSize: 24,
                             ),
                           ),
                           ...List.generate(weeklyHotByGenreList?[i].titleList?.length ?? 0, (index) {
                             MangaModel weeklyHotTitle = weeklyHotByGenreList![i].titleList![index];
-                            return Card(
-                              child: ListTile(
-                                  leading: CustomImage(
-                                    imageUrl: 'https://webtoon-phinf.pstatic.net' + weeklyHotTitle.thumbnail!,
-                                  ),
-                                  title: Text(weeklyHotTitle.title ?? '')),
-                            );
+                              return MangaCard(mangaModel: weeklyHotTitle);
                           })
                         ])),
               ],

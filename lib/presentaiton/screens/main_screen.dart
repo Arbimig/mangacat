@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'home_screen/home_screen.dart';
 
 class MainScreen extends StatefulWidget {
+  static const routeName = 'main_screen';
+
   const MainScreen({Key? key}) : super(key: key);
 
   @override

@@ -16,34 +16,59 @@ class _CanvasApi implements CanvasApi {
   String? baseUrl;
 
   @override
-  Future<ResponseModel> getHome({required language}) async {
+  Future<HomeModel> getHome({required language}) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final _data = language;
+    final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<ResponseModel>(
+        _setStreamType<HomeModel>(
             Options(method: 'GET', headers: _headers, extra: _extra)
                 .compose(_dio.options, '/canvas/home',
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = ResponseModel.fromJson(_result.data!);
+    final value = await compute(deserializeHomeModel, _result.data!);
     return value;
   }
 
   @override
-  Future<ResponseModel> getMangaInfo({required mangaId}) async {
+  Future<ChaptersModel> getChapters(
+      {required titleNo, required startIndex, required pageSize}) async {
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{
+      r'titleNo': titleNo,
+      r'startIndex': startIndex,
+      r'pageSize': pageSize
+    };
     final _headers = <String, dynamic>{};
-    final _data = mangaId;
+    final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<ResponseModel>(
+        _setStreamType<ChaptersModel>(
             Options(method: 'GET', headers: _headers, extra: _extra)
-                .compose(_dio.options, 'canvas/titles/get-info',
+                .compose(_dio.options, '/canvas/episodes/list',
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = ResponseModel.fromJson(_result.data!);
+    final value = await compute(deserializeChaptersModel, _result.data!);
+    return value;
+  }
+
+  @override
+  Future<ChapterInfoModel> getChapterInfo(
+      {required titleNo, required episodeNo}) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{
+      r'titleNo': titleNo,
+      r'episodeNo': episodeNo
+    };
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<ChapterInfoModel>(
+            Options(method: 'GET', headers: _headers, extra: _extra)
+                .compose(_dio.options, '/canvas/episodes/get-info',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = await compute(deserializeChapterInfoModel, _result.data!);
     return value;
   }
 

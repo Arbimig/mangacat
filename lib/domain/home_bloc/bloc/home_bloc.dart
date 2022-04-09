@@ -1,11 +1,9 @@
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-
-import '../../../../data/api/web_toon_api.dart';
-import '../../../../data/models/genres_model.dart';
-import '../../../../data/models/home_model.dart';
-import '../../../../data/models/manga_model.dart';
-import '../../../../data/models/response.dart';
+import 'package:mangacat/data/api/web_toon_api.dart';
+import 'package:mangacat/data/models/geners/genres_model.dart';
+import 'package:mangacat/data/models/home/home_model.dart';
+import 'package:mangacat/data/models/manga/manga_model.dart';
 
 part 'home_bloc.freezed.dart';
 
@@ -34,16 +32,17 @@ class HomeBloc extends Bloc<HomeBlocEvent, HomeBlocState> {
   @override
   Stream<HomeBlocState> mapEventToState(HomeBlocEvent event) => event.when<Stream<HomeBlocState>>(getHome: _getHome);
   final WebToonApi _webToonApi = WebToonApi();
+  
   Stream<HomeBlocState> _getHome() async* {
     try {
-      ResponseModel response = await _webToonApi.canvasApi.getHome(language: 'en');
-      HomeModel? homeModel = response.message?.result;
-      List<MangaModel> _weeklyHotTitleList = homeModel?.weeklyHotTitleList ?? [];
-      List<MangaModel> _freshPicksTitleList = homeModel?.freshPicksTitleList ?? [];
+      HomeModel? homeModel = await _webToonApi.canvasApi.getHome(language: 'en');
 
-      List<GenresModel> _popularByGenreList = homeModel?.popularByGenreList ?? [];
+      List<MangaModel> _weeklyHotTitleList = homeModel.weeklyHotTitleList ?? [];
+      List<MangaModel> _freshPicksTitleList = homeModel.freshPicksTitleList ?? [];
 
-      List<GenresModel> _weeklyHotByGenreList = homeModel?.weeklyHotByGenreList ?? [];
+      List<GenresModel> _popularByGenreList = homeModel.popularByGenreList ?? [];
+
+      List<GenresModel> _weeklyHotByGenreList = homeModel.weeklyHotByGenreList ?? [];
       yield LoadedHomeBlocState(
           weeklyHotTitleList: _weeklyHotTitleList,
           freshPicksTitleList: _freshPicksTitleList,

@@ -36,7 +36,6 @@ dependencies:
 
   # repository
   http: ^0.13.4
-  chopper: ^4.0.5
   dio: ^4.0.4
   retrofit: ^3.0.1+1
 

@@ -1,7 +1,5 @@
-import 'dart:ui';
-
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'manga_model.dart';
+import 'package:mangacat/data/models/manga/manga_model.dart';
 
 part 'genres_model.freezed.dart';
 part 'genres_model.g.dart';
