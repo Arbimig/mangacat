@@ -1,16 +1,25 @@
-# mangacat
+# MangaCat
 
-A new Flutter project.
+Flutter-приложение для чтения манги.
 
-## Getting Started
+## Описание
 
-This project is a starting point for a Flutter application.
+Каталог манги с возможностью просмотра списка тайтлов, чтения глав и навигации по страницам. Использует BLoC для управления состоянием.
 
-A few resources to get you started if this is your first Flutter project:
+## Технологии
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+- **Flutter** (Dart)
+- **flutter_bloc** — управление состоянием
+- **http** — API-запросы
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Сборка
+
+```bash
+flutter pub get
+flutter run
+```
+
+## Структура
+
+- `lib/domain/` — бизнес-логика (HomeBloc)
+- `lib/presentation/` — экраны (Main, Manga, Reader)
